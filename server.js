@@ -6,6 +6,26 @@ const { urlencoded } = require("body-parser");
 
 const app = express();
 
+// open mongoose connection to mongodb database
+const db = require("./app/models");
+const { connect } = require("mongodb");
+const dbConfig = require("./app/config/db.config");
+// const Role = db.role;
+
+db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // strictQuery: false
+  })
+  .then(()=>{
+    console.log("Connected to MongoDB");
+    // initial();
+  })
+  .catch(err => {
+    console.error("Connection error", err);
+    // process.exit();
+  });
+
 //cors for browser
 var corsOptions = {
   origin: "http://localhost:8081",
