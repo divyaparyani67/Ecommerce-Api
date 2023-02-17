@@ -3,8 +3,21 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const { urlencoded } = require("body-parser");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const app = express();
+
+//configuaration
+dotenv.config();
+// mongoose connection
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("db connected successfully"))
+  .catch((err) => console.log(err));
 
 //cors for browser
 var corsOptions = {
